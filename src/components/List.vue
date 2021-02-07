@@ -1,12 +1,28 @@
 <template>
-  <div class="hello">
-    <h1>{{ title }}</h1>
-    <h1>{{ text }}</h1>
-    <input v-model="title">
-    <input v-model="text">
-    <button v-on:click="pushMessage">добавить</button>
+  <div>
+    <div class="new_todo">
+      <div v-if="title || text">
+        <h1>{{ title }}</h1>
+        <h2>{{ text }}</h2>
+      </div>
+      <div v-else>
+        <h1>Нет данных</h1>
+      </div>
+    </div>
+    <div class="control">
+      <input v-model="title" placeholder="название задачи">
+      <input v-model="text" placeholder="задача">
+      <button v-on:click="pushMessage">добавить</button>
+    </div>
     <ol>
-      <Item v-for="todo in todos" v-bind:key="todo.id" v-bind:item="todo" v-on:remove="removeFromList" />
+      <Item
+        v-for="todo in todos"
+        v-bind:key="todo.id"
+        v-bind:item="todo"
+        v-bind:complete="completeTodos.includes(todo.id)"
+        v-on:remove="removeFromList"
+        v-on:complete="toggleItem"
+      />
     </ol>
   </div>
 </template>
@@ -24,6 +40,7 @@ export default {
       title: '',
       text: '',
       todos: [],
+      completeTodos: [],
     }
   },
   methods: {
@@ -32,18 +49,40 @@ export default {
         this.todos.push({title: this.title, text: this.text, id: Date.now()});
         this.title = '';
         this.text = '';
+        this.$emit('add-item-list');
       }
     },
     removeFromList(id) {
       this.todos = this.todos.filter(item => id !== item.id);
       this.$emit('remove-item-list');
+    },
+    toggleItem(id) {
+      if (this.completeTodos.includes(id)) {
+        this.completeTodos = this.completeTodos.filter(itemId => id !== itemId);
+        this.$emit('uncomplete-item-list');
+      } else {
+        this.completeTodos.push(id);
+        this.$emit('complete-item-list');
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
+  .new_todo {
+    width: 500px;
+    margin: 0 auto;
+    border: 1px solid #80808033;
+    border-radius: 4px;
+    box-shadow: 6px 7px 10px 0px grey;
+  }
+  .control {
+    width: 420px;
+    height: 100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 </style>
