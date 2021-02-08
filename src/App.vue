@@ -1,20 +1,27 @@
 <template>
   <div id="app">
-    <span v-if="addCount">
-      добавлено: {{ addCount }}
-    </span>
-    <span v-if="removeCount">
-      удалено: {{ removeCount }}
-    </span>
-    <span v-if="completeCount">
-      выполнено: {{ completeCount }}
-    </span>
-    <List
-      v-on:remove-item-list="removeFromListCount"
-      v-on:add-item-list="addListCount"
-      v-on:complete-item-list="complete"
-      v-on:uncomplete-item-list="uncomplete"
-    />
+    <v-app>
+      <v-row
+        align="center"
+        justify="space-around"
+      >
+        <span v-if="addCount">
+          добавлено: {{ addCount }}
+        </span>
+        <span v-if="removeCount">
+          удалено: {{ removeCount }}
+        </span>
+        <span v-if="completeCount">
+          выполнено: {{ completeCount }}
+        </span>
+      </v-row>
+        <List
+          v-on:remove-item-list="removeFromListCount"
+          v-on:add-item-list="addListCount"
+          v-on:complete-item-list="complete"
+          v-on:uncomplete-item-list="uncomplete"
+        />
+    </v-app>
   </div>
 </template>
 
@@ -49,12 +56,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
-</style>

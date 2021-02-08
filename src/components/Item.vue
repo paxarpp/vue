@@ -1,15 +1,23 @@
 <template>
-  <li class="item">
-    <span class="item_complete_control" v-on:click="completeItem">v</span>
-      <span :class="{ item_complete: complete }">
-        {{ item.title }}
-        {{ item.text }}
-      </span>
-    <span class="item_remover" v-on:click="removeItem">X</span>
+  <li>
+    <v-icon v-on:click="completeItem" color="green">
+      {{ icons.mdiCheckBold }}
+    </v-icon>
+    <span :class="{ 'font-weight-thin': complete }">
+      {{ item.title }}
+      {{ item.text }}
+    </span>
+    <v-icon v-on:click="removeItem" color="red">
+      {{ icons.mdiDelete }}
+    </v-icon>
   </li>
 </template>
 
 <script>
+  import {
+    mdiDelete,
+    mdiCheckBold,
+  } from '@mdi/js'
   export default {
     name: 'Item',
     props: [
@@ -23,32 +31,12 @@
       completeItem() {
         this.$emit('complete', this.item.id);
       }
-    }
+    },
+    data: () => ({
+      icons: {
+        mdiDelete,
+        mdiCheckBold,
+      },
+    }),
   }
 </script>
-
-<style scoped>
-  .item_remover {
-    color: red;
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    cursor: pointer;
-  }
-  .item_complete_control {
-    color: rgb(0, 255, 106);
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    cursor: pointer;
-  }
-  .item {
-    position: relative;
-    font-weight: 600;
-    width: 500px;
-  }
-  .item_complete {
-    text-decoration-line: line-through;
-    font-weight: 100;
-  }
-</style>

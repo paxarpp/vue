@@ -1,19 +1,27 @@
 <template>
-  <div>
-    <div class="new_todo">
+  <v-row
+    align="center"
+    justify="space-around"
+  >
+    <v-card>
       <div v-if="title || text">
-        <h1>{{ title }}</h1>
-        <h2>{{ text }}</h2>
+        <v-card-title>{{ title }}</v-card-title>
+        <v-card-text>{{ text }}</v-card-text>
       </div>
       <div v-else>
-        <h1>Нет данных</h1>
+        <v-card-title>Нет данных</v-card-title>
       </div>
-    </div>
-    <div class="control">
+    </v-card>
+    <v-row>
       <input v-model="title" placeholder="название задачи">
       <input v-model="text" placeholder="задача">
-      <button v-on:click="pushMessage">добавить</button>
-    </div>
+      <v-btn
+        color="primary"
+        v-on:click="pushMessage"
+      >
+        добавить
+      </v-btn>
+    </v-row>
     <ol>
       <Item
         v-for="todo in todos"
@@ -24,7 +32,7 @@
         v-on:complete="toggleItem"
       />
     </ol>
-  </div>
+  </v-row>
 </template>
 
 <script>
@@ -68,21 +76,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  .new_todo {
-    width: 500px;
-    margin: 0 auto;
-    border: 1px solid #80808033;
-    border-radius: 4px;
-    box-shadow: 6px 7px 10px 0px grey;
-  }
-  .control {
-    width: 420px;
-    height: 100px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-</style>
