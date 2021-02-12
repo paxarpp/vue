@@ -5,15 +5,11 @@
         align="center"
         justify="space-around"
       >
-        <span v-if="addCount">
-          добавлено: {{ addCount }}
-        </span>
-        <span v-if="removeCount">
-          удалено: {{ removeCount }}
-        </span>
-        <span v-if="completeCount">
-          выполнено: {{ completeCount }}
-        </span>
+        <v-card>
+          <v-card-text v-if="addCount">добавлено: {{ addCount }}</v-card-text>
+          <v-card-text v-if="removeCount">удалено: {{ removeCount }}</v-card-text>
+          <v-card-text v-if="completeCount">выполнено: {{ completeCount }}</v-card-text>
+        </v-card>
       </v-row>
         <List
           v-on:remove-item-list="removeFromListCount"

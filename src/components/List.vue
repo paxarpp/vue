@@ -3,16 +3,11 @@
     align="center"
     justify="space-around"
   >
-    <v-card>
-      <div v-if="title || text">
+    <v-row>
+      <v-card v-if="title || text">
         <v-card-title>{{ title }}</v-card-title>
         <v-card-text>{{ text }}</v-card-text>
-      </div>
-      <div v-else>
-        <v-card-title>Нет данных</v-card-title>
-      </div>
-    </v-card>
-    <v-row>
+      </v-card>
       <input v-model="title" placeholder="название задачи">
       <input v-model="text" placeholder="задача">
       <v-btn
