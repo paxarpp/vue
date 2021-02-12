@@ -1,16 +1,18 @@
 <template>
-  <li>
-    <v-icon v-on:click="completeItem" color="green">
-      {{ icons.mdiCheckBold }}
-    </v-icon>
-    <span :class="{ 'font-weight-thin': complete }">
-      {{ item.title }}
-      {{ item.text }}
-    </span>
-    <v-icon v-on:click="removeItem" color="red">
-      {{ icons.mdiDelete }}
-    </v-icon>
-  </li>
+  <v-card width="500">
+    <v-list-item two-line>
+        <v-icon v-on:click="completeItem" color="green">
+          {{ icons.mdiCheckBold }}
+        </v-icon>
+      <v-list-item-content>
+        <v-list-item-title :class="{ 'font-weight-thin': complete }">{{ item.title }}</v-list-item-title>
+        <v-list-item-subtitle :class="{ 'font-weight-thin': complete }">{{ item.text }}</v-list-item-subtitle>
+      </v-list-item-content>
+        <v-icon v-on:click="removeItem" color="red">
+          {{ icons.mdiDelete }}
+        </v-icon>
+    </v-list-item>
+  </v-card>
 </template>
 
 <script>

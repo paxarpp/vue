@@ -1,54 +1,79 @@
 <template>
-  <div id="app">
-    <v-app>
-      <v-row
-        align="center"
-        justify="space-around"
-      >
-        <v-card>
-          <v-card-text v-if="addCount">добавлено: {{ addCount }}</v-card-text>
-          <v-card-text v-if="removeCount">удалено: {{ removeCount }}</v-card-text>
-          <v-card-text v-if="completeCount">выполнено: {{ completeCount }}</v-card-text>
-        </v-card>
-      </v-row>
+  <v-app>
+    <v-navigation-drawer app>
+
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <Creator
+        v-on:add-todo="addTodo"
+      />
+    </v-app-bar>
+
+    <v-main>
+      <v-container fluid>
         <List
-          v-on:remove-item-list="removeFromListCount"
-          v-on:add-item-list="addListCount"
-          v-on:complete-item-list="complete"
-          v-on:uncomplete-item-list="uncomplete"
+          v-bind:todos="todos"
+          v-bind:completeTodos="completeTodos"
+          v-on:add-todo="addTodo"
+          v-on:remove-todo="removeTodo"
+          v-on:toggle-todo="toggleTodo"
         />
-    </v-app>
-  </div>
+      </v-container>
+    </v-main>
+
+    <v-footer app>
+      <v-container fluid>
+        <Chips
+          v-bind:addCount="addCount"
+          v-bind:removeCount="removeCount"
+          v-bind:completeCount="completeCount"
+        />
+      </v-container>
+    </v-footer>
+  </v-app>
 </template>
+
 
 <script>
 import List from './components/List';
+import Creator from './components/creator';
+import Chips from './components/chips';
 
 export default {
   name: 'app',
   components: {
-    List
+    List,
+    Creator,
+    Chips,
   },
   data() {
     return {
+      todos: [],
+      completeTodos: [],
       removeCount: 0,
       addCount: 0,
       completeCount: 0,
     }
   },
   methods: {
-    removeFromListCount() {
-      this.removeCount += 1;
-    },
-    addListCount() {
+    addTodo(todo) {
+      this.todos.push(todo);
       this.addCount += 1;
     },
-    complete() {
-      this.completeCount += 1;
+    removeTodo(id) {
+      this.todos = this.todos.filter(item => id !== item.id);
+      this.removeCount += 1;
     },
-    uncomplete() {
-      this.completeCount -= 1;
-    }
+    toggleTodo(id) {
+      if (this.completeTodos.includes(id)) {
+        this.completeTodos = this.completeTodos.filter(itemId => id !== itemId);
+        this.completeCount -= 1;
+      } else {
+        this.completeTodos.push(id);
+        this.completeCount += 1;
+      }
+    },
   }
 }
 </script>
