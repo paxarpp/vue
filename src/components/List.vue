@@ -38,6 +38,6 @@ export default {
     check(id) {
       return !!this.completeTodos.includes(id);
     }
-  },
+  }
 }
 </script>

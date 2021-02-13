@@ -1,9 +1,10 @@
 <template>
   <v-card width="500">
     <v-list-item two-line>
-        <v-icon v-on:click="completeItem" color="green">
-          {{ icons.mdiCheckBold }}
-        </v-icon>
+      <v-icon v-on:click="completeItem" color="green">
+        {{ icons.mdiCheckBold }}
+      </v-icon>
+      <v-divider class="mx-4" vertical />
       <v-list-item-content>
         <v-list-item-title :class="{ 'font-weight-thin': complete }">{{ item.title }}</v-list-item-title>
         <v-list-item-subtitle :class="{ 'font-weight-thin': complete }">{{ item.text }}</v-list-item-subtitle>
