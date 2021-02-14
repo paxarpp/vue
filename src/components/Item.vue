@@ -1,15 +1,15 @@
 <template>
   <v-card width="500">
     <v-list-item two-line>
-      <v-icon v-on:click="completeItem" color="green">
+      <v-icon f-if='!isTrash' v-on:click="completeItem" color="green">
         {{ icons.mdiCheckBold }}
       </v-icon>
-      <v-divider class="mx-4" vertical />
+      <v-divider f-if='!isTrash' class="mx-4" vertical />
       <v-list-item-content>
-        <v-list-item-title :class="{ 'font-weight-thin': complete }">{{ item.title }}</v-list-item-title>
-        <v-list-item-subtitle :class="{ 'font-weight-thin': complete }">{{ item.text }}</v-list-item-subtitle>
+        <v-list-item-title :class="{ 'font-weight-thin': item.complete }">{{ item.title }}</v-list-item-title>
+        <v-list-item-subtitle :class="{ 'font-weight-thin': item.complete }">{{ item.text }}</v-list-item-subtitle>
       </v-list-item-content>
-        <v-icon v-on:click="removeItem" color="red">
+        <v-icon f-if='!isTrash' v-on:click="removeItem" color="red">
           {{ icons.mdiDelete }}
         </v-icon>
     </v-list-item>
@@ -25,14 +25,14 @@
     name: 'Item',
     props: [
       'item',
-      'complete'
+      'isTrash'
     ],
     methods: {
       removeItem() {
-        this.$emit('remove', this.item.id);
+        this.$emit('remove', this.item);
       },
       completeItem() {
-        this.$emit('complete', this.item.id);
+        this.$emit('complete', this.item);
       }
     },
     data: () => ({

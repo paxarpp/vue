@@ -87,7 +87,7 @@ export default {
   methods: {
     pushMessage() {
       if (this.title && this.text) {
-        this.$emit("add-todo", { title: this.title, text: this.text, id: Date.now() });
+        this.$emit("add-todo", { title: this.title, text: this.text, id: Date.now(), complete: false });
         this.title = "";
         this.text = "";
         this.dialog = false;

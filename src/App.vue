@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <v-navigation-drawer app>
-
+      <Trash
+        v-bind:trash="trash"
+      />
     </v-navigation-drawer>
 
     <v-app-bar app>
@@ -14,7 +16,6 @@
       <v-container fluid>
         <List
           v-bind:todos="todos"
-          v-bind:completeTodos="completeTodos"
           v-on:add-todo="addTodo"
           v-on:remove-todo="removeTodo"
           v-on:toggle-todo="toggleTodo"
@@ -37,6 +38,7 @@
 
 <script>
 import List from './components/List';
+import Trash from './components/trash';
 import Creator from './components/creator';
 import Chips from './components/chips';
 
@@ -44,13 +46,14 @@ export default {
   name: 'app',
   components: {
     List,
+    Trash,
     Creator,
     Chips,
   },
   data() {
     return {
       todos: [],
-      completeTodos: [],
+      trash: [],
       removeCount: 0,
       addCount: 0,
       completeCount: 0,
@@ -61,16 +64,20 @@ export default {
       this.todos.push(todo);
       this.addCount += 1;
     },
-    removeTodo(id) {
-      this.todos = this.todos.filter(item => id !== item.id);
+    removeTodo(todo) {
+      this.todos = this.todos.filter(item => todo.id !== item.id);
+      this.trash.push(todo);
       this.removeCount += 1;
     },
-    toggleTodo(id) {
-      if (this.completeTodos.includes(id)) {
-        this.completeTodos = this.completeTodos.filter(itemId => id !== itemId);
+    toggleTodo(todo) {
+      this.todos = this.todos.map(t => {
+        if (t.id === todo.id) {
+          return { ...t, complete: !todo.complete }
+        } return t;
+      });
+      if (todo.complete) {
         this.completeCount -= 1;
       } else {
-        this.completeTodos.push(id);
         this.completeCount += 1;
       }
     },

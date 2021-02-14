@@ -5,11 +5,10 @@
   >
     <v-list >
       <Item
-        v-for="todo in todos"
+        v-for="todo in trash"
         v-bind:key="todo.id"
         v-bind:item="todo"
-        v-on:remove="removeFromList"
-        v-on:complete="toggleItem"
+        v-bind:isTrash="true"
       />
     </v-list>
   </v-row>
@@ -19,20 +18,13 @@
 import Item from './Item';
 
 export default {
-  name: 'List',
+  name: 'Trash',
   components: {
     Item
   },
   props: [
-    'todos',
+    'trash',
   ],
-  methods: {
-    removeFromList(todo) {
-      this.$emit('remove-todo', todo);
-    },
-    toggleItem(todo) {
-      this.$emit('toggle-todo', todo);
-    },
-  }
+
 }
 </script>
