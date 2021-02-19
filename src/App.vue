@@ -73,7 +73,8 @@ export default {
       this.todos = this.todos.map(t => {
         if (t.id === todo.id) {
           return { ...t, complete: !todo.complete }
-        } return t;
+        }
+        return t;
       });
       if (todo.complete) {
         this.completeCount -= 1;
